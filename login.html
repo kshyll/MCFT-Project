@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | MCFT</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .login-wrap {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+        }
+
+        .login-card {
+            background: var(--surface);
+            padding: 32px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .login-card input {
+            padding: 12px 14px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            font: inherit;
+        }
+
+        .login-card button {
+            padding: 12px;
+            border: 0;
+            border-radius: 12px;
+            cursor: pointer;
+            font: inherit;
+            color: #fff;
+            background: linear-gradient(90deg, #e21b87, #8fb8f1);
+        }
+
+        #login-error {
+            color: #dc2626;
+            font-size: 12px;
+            min-height: 16px;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="login-wrap">
+        <form class="login-card" id="login-form">
+            <h2>Sign in</h2>
+            <input id="email" type="email" placeholder="Email" autocomplete="username">
+            <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+            <p id="login-error"></p>
+            <button type="submit" id="login-btn">Sign in</button>
+        </form>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const db = supabase.createClient('https://pmnkooqadiukqvinxyny.supabase.co', 'sb_publishable__xcv8rWT-h-EEDuhFqSBAA_w5kdf_PR');
+
+        document.getElementById('login-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const { error } = await db.auth.signInWithPassword({
+                email: document.getElementById('email').value.trim(),
+                password: document.getElementById('password').value,
+            });
+            if (error) document.getElementById('login-error').textContent = error.message;
+            else location.href = 'index.html';
+        });
+    </script>
+</body>
+
+</html>
