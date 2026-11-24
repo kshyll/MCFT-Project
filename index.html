@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCFT Employee Skills & Competency Management</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <aside class="sidebar">
+        <nav class="navigation">
+            <img class="brand-mark" src="MCFT_Logo_Marque_FullColour_RGB.webp" alt="MCFT Logo" />
+    
+            <ul>
+                <li>
+                    <a href="index.html" class="nav-link active" title="Dashboard" data-tooltip="Dashboard">
+                        <i data-lucide="layout-dashboard"></i>
+                    </a>
+                </li>
+    
+                <li>
+                    <a href="employees.html" class="nav-link" title="Employees" data-tooltip="Employees">
+                        <i data-lucide="users"></i>
+                    </a>
+                </li>
+    
+                <li>
+                    <a href="skills.html" class="nav-link" title="Skills Matrix" data-tooltip="Skills Matrix">
+                        <i data-lucide="brain"></i>
+                    </a>
+                </li>
+    
+                <li>
+                    <a href="competencies.html" class="nav-link" title="Competencies" data-tooltip="Competencies">
+                        <i data-lucide="layers"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="certifications.html" class="nav-link" title="Certifications" data-tooltip="Certifications">
+                        <i data-lucide="award"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="training.html" class="nav-link" title="Training" data-tooltip="Training">
+                        <i data-lucide="graduation-cap"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="reports.html" class="nav-link" title="Reports" data-tooltip="Reports">
+                        <i data-lucide="bar-chart-2"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-bottom">
+                <a href="settings.html" class="nav-link" title="Settings" data-tooltip="Settings">
+                    <i data-lucide="settings"></i>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- HEADER -->
+        <header class="topbar" id="topbar">
+        
+            <div class="page-heading" id="page-heading">
+                <h1 id="page-title">Employee Skills & Competency Management</h1>
+                <p id="page-subtitle">Monitor. Develop. Empower.</p>
+            </div>
+        
+            <div class="header-actions" id="header-actions">
+        
+                <div class="search-bar" id="employee-search">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="employee-search-input" placeholder="Search employee by name or number..."
+                        aria-label="Search employee by name or number">
+                </div>
+        
+                <div class="user-profile" id="user-profile">
+                    <img id="user-avatar" src="profile.jpg" alt="User Profile">
+        
+                    <div class="user-info">
+                        <h4 id="user-name">Admin Name</h4>
+                        <span id="user-role">HR Manager</span>
+                    </div>
+                </div>
+        
+                <button class="logout-btn" id="logout-button" title="Logout" aria-label="Logout">
+                    <i data-lucide="log-out"></i>
+                </button>
+        
+            </div>
+        </header>
+
+        <!-- DASHBOARD CONTENT -->
+        <section class="dashboard-content">
+        
+            <!-- SUMMARY CARDS -->
+            <section class="summary-grid">
+        
+                <div class="summary-card">
+                    <div class="card-icon pink">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <p>Total Employees</p>
+                    <h2 id="total-employees">--</h2>
+                    <span>No. of Employees</span>
+                </div>
+        
+                <div class="summary-card">
+                    <div class="card-icon blue">
+                        <i data-lucide="award"></i>
+                    </div>
+                    <p>Active Certifications</p>
+                    <h2 id="active-certifications">--</h2>
+                    <span>83% of total employees</span>
+                </div>
+        
+                <div class="summary-card">
+                    <div class="card-icon yellow">
+                        <i data-lucide="clock"></i>
+                    </div>
+                    <p>Expiring Certifications</p>
+                    <h2 id="expiring-certifications">--</h2>
+                    <span>Within 30 days</span>
+                </div>
+        
+                <div class="summary-card">
+                    <div class="card-icon red">
+                        <i data-lucide="alert-triangle"></i>
+                    </div>
+                    <p>Expired Certifications</p>
+                    <h2 id="expired-certifications">--</h2>
+                    <span>Requires renewal</span>
+                </div>
+        
+                <div class="summary-card">
+                    <div class="card-icon blue">
+                        <i data-lucide="clipboard-check"></i>
+                    </div>
+                    <p>Pending Verification</p>
+                    <h2 id="pending-verification">--</h2>
+                    <span>Awaiting approval</span>
+                </div>
+        
+                <div class="summary-card">
+                    <div class="card-icon pink">
+                        <i data-lucide="trending-up"></i>
+                    </div>
+                    <p>Training Completion</p>
+                    <h2 id="training-completion">--</h2>
+                    <span>Overall completion rate</span>
+                </div>
+        
+            </section>
+        
+        
+            <!-- ANALYTICS ROW -->
+            <section class="dashboard-grid">
+        
+                <!-- CERTIFICATION MONITORING -->
+                <div class="panel certification-panel">
+                    <div class="panel-header">
+                        <h3>Certification Monitoring</h3>
+                        <a href="certifications.html">View all →</a>
+                    </div>
+        
+                    <div class="panel-content">
+                        <div class="chart-placeholder">
+                            <i data-lucide="chart-pie"></i>
+                            <p>Certification Status Chart</p>
+                        </div>
+        
+                        <div class="details">
+                            <p><span class="dot green-dot"></span> Active</p>
+                            <p><span class="dot yellow-dot"></span> Expiring</p>
+                            <p><span class="dot red-dot"></span> Expired</p>
+                        </div>
+                    </div>
+                </div>
+        
+        
+                <!-- WORKFORCE SKILLS -->
+                <div class="panel skills-panel">
+                    <div class="panel-header">
+                        <h3>Workforce Skills Overview</h3>
+                        <a href="skills.html">View all →</a>
+                    </div>
+        
+                    <div class="panel-content">
+                        <div class="chart-placeholder">
+                            <i data-lucide="grid-3x3"></i>
+                            <p>Skills Competency Matrix</p>
+                        </div>
+        
+                        <div class="skill-insights">
+                            <div>
+                                <span>Most Covered Skill</span>
+                                <h4>Web Development</h4>
+                            </div>
+        
+                            <div>
+                                <span>Least Covered Skill</span>
+                                <h4>Cybersecurity</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+        
+                <!-- TRAINING OVERVIEW -->
+                <div class="panel training-panel">
+                    <div class="panel-header">
+                        <h3>Training Overview</h3>
+                        <a href="training.html">View all →</a>
+                    </div>
+        
+                    <div class="chart-placeholder">
+                        <i data-lucide="chart-no-axes-combined"></i>
+                        <p>Training Completion Chart</p>
+                    </div>
+        
+                    <div class="training-stats">
+                        <p>Completed <strong id="training-completed">--</strong></p>
+                        <p>In Progress <strong id="training-in-progress">--</strong></p>
+                        <p>Not Completed <strong id="training-not-completed">--</strong></p>
+                    </div>
+                </div>
+        
+            </section>
+        
+        
+            <!-- WORKFORCE AND EMPLOYEE ROW -->
+            <section class="dashboard-grid lower-grid">
+        
+                <!-- EMPLOYEE SEARCH -->
+                <div class="panel employee-panel">
+                    <div class="panel-header">
+                        <h3>Employee Directory</h3>
+                        <a href="employees.html">View all →</a>
+                    </div>
+        
+                    <div class="filter-bar">
+                        <select>
+                            <option value="">Department</option>
+                            <option>IT</option>
+                            <option>HR</option>
+                            <option>CCS</option>
+                        </select>
+        
+                        <select>
+                            <option value="">Position</option>
+                        </select>
+        
+                        <select>
+                            <option value="">Status</option>
+                            <option>Active</option>
+                            <option>Inactive</option>
+                        </select>
+                    </div>
+        
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Department</th>
+                                    <th>Position</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+        
+                            <tbody>
+                                <tr>
+                                    <td>Daniel Rivera</td>
+                                    <td>IT</td>
+                                    <td>Developer</td>
+                                    <td><span class="status active-status">Active</span></td>
+                                    <td><a href="#">View</a></td>
+                                </tr>
+        
+                                <tr>
+                                    <td>Mariane Santos</td>
+                                    <td>HR</td>
+                                    <td>Analyst</td>
+                                    <td><span class="status active-status">Active</span></td>
+                                    <td><a href="#">View</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        
+        
+                <!-- DATA QUALITY -->
+                <div class="panel quality-panel">
+                    <div class="panel-header">
+                        <h3>Data Quality</h3>
+                    </div>
+        
+                    <h2>96%</h2>
+                    <p>Profile Completeness</p>
+        
+                    <div class="progress-bar">
+                        <div style="width: 96%"></div>
+                    </div>
+        
+                    <div class="quality-details">
+                        <p>Missing Skills <strong id="missing-skills">--</strong></p>
+                        <p>Missing Certifications <strong id="missing-certifications">--</strong></p>
+                        <p>Missing Training <strong id="missing-training">--</strong></p>
+                    </div>
+                </div>
+        
+        
+                <!-- QUICK ACTIONS -->
+                <div class="panel actions-panel">
+                    <div class="panel-header">
+                        <h3>Quick Actions</h3>
+                    </div>
+        
+                    <a href="employees.html" class="action-btn">
+                        <i data-lucide="user-plus"></i>
+                        Add Employee
+                    </a>
+        
+                    <a href="skills.html" class="action-btn">
+                        <i data-lucide="brain"></i>
+                        Record Skill
+                    </a>
+        
+                    <a href="certifications.html" class="action-btn">
+                        <i data-lucide="award"></i>
+                        Add Certification
+                    </a>
+        
+                    <a href="training.html" class="action-btn">
+                        <i data-lucide="graduation-cap"></i>
+                        Add Training Record
+                    </a>
+        
+                    <a href="reports.html" class="action-btn">
+                        <i data-lucide="file-chart-column"></i>
+                        Generate Report
+                    </a>
+                </div>
+        
+            </section>
+        
+        </section>
+
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>lucide.createIcons();</script>
+    <script src="app.js" defer></script>
+</body>
+</html>
