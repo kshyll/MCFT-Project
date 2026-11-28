@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competencies & Verification | MCFT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <nav class="navigation">
+            <img class="brand-mark" src="MCFT_Logo_Marque_FullColour_RGB.webp" alt="MCFT Logo" />
+
+            <ul>
+                <li>
+                    <a href="index.html" class="nav-link" title="Dashboard" data-tooltip="Dashboard">
+                        <i data-lucide="layout-dashboard"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="employees.html" class="nav-link" title="Employees" data-tooltip="Employees">
+                        <i data-lucide="users"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="skills.html" class="nav-link" title="Skills Matrix" data-tooltip="Skills Matrix">
+                        <i data-lucide="brain"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="competencies.html" class="nav-link active" title="Competencies" data-tooltip="Competencies">
+                        <i data-lucide="layers"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="certifications.html" class="nav-link" title="Certifications" data-tooltip="Certifications">
+                        <i data-lucide="award"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="training.html" class="nav-link" title="Training" data-tooltip="Training">
+                        <i data-lucide="graduation-cap"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="reports.html" class="nav-link" title="Reports" data-tooltip="Reports">
+                        <i data-lucide="bar-chart-2"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-bottom">
+                <a href="settings.html" class="nav-link" title="Settings" data-tooltip="Settings">
+                    <i data-lucide="settings"></i>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar" id="topbar">
+            <div class="page-heading" id="page-heading">
+                <h1 id="page-title">Competency Levels & Verification</h1>
+                <p id="page-subtitle">Manage proficiency benchmarks and review pending employee qualification submissions.</p>
+            </div>
+
+            <div class="header-actions" id="header-actions">
+                <div class="search-bar" id="comp-search-wrap">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="comp-search" placeholder="Search employee, skill, or department..."
+                        aria-label="Search competencies">
+                </div>
+
+                <div class="user-profile" id="user-profile">
+                    <img id="user-avatar" src="profile.jpg" alt="User Profile">
+                    <div class="user-info">
+                        <h4 id="user-name">Admin Name</h4>
+                        <span id="user-role">HR Manager</span>
+                    </div>
+                </div>
+
+                <button class="logout-btn" id="logout-button" title="Logout" aria-label="Logout">
+                    <i data-lucide="log-out"></i>
+                </button>
+            </div>
+        </header>
+
+        <section class="dashboard-content">
+            <!-- Summary Cards -->
+            <section class="summary-grid comp-summary-grid">
+                <div class="summary-card">
+                    <div class="card-icon yellow">
+                        <i data-lucide="hourglass"></i>
+                    </div>
+                    <p>Awaiting Verification</p>
+                    <h2 id="stat-comp-pending">--</h2>
+                    <span>Pending & declared entries</span>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon green">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <p>Verified Competencies</p>
+                    <h2 id="stat-comp-verified">--</h2>
+                    <span>Approved by HR / Supervisors</span>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon pink">
+                        <i data-lucide="award"></i>
+                    </div>
+                    <p>Advanced & Expert</p>
+                    <h2 id="stat-comp-senior">--</h2>
+                    <span>Level 3 & Level 4 records</span>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon blue">
+                        <i data-lucide="percent"></i>
+                    </div>
+                    <p>Verification Rate</p>
+                    <h2 id="stat-comp-rate">--%</h2>
+                    <span>Share of validated records</span>
+                </div>
+            </section>
+
+            <!-- Competency Level Scale Reference -->
+            <section class="panel" style="margin-bottom: 16px;">
+                <div class="panel-header">
+                    <div>
+                        <h3>Standard Competency Level Framework</h3>
+                        <p class="panel-subtext">MCFT proficiency rubric used to evaluate technical and operational skills.</p>
+                    </div>
+                    <a href="skills.html" class="table-btn" style="text-decoration: none;">
+                        <i data-lucide="grid"></i> Open Skills Matrix
+                    </a>
+                </div>
+
+                <div class="comp-tiers-grid" id="comp-tiers-grid">
+                    <div class="comp-tier-card tier-1">
+                        <div class="comp-tier-top">
+                            <span class="tier-badge">Level 1 · Beginner</span>
+                            <strong id="tier-count-1">0</strong>
+                        </div>
+                        <h4>Foundational Awareness</h4>
+                        <p>Understands basic concepts and safety rules; requires direct supervision on field tasks.</p>
+                    </div>
+
+                    <div class="comp-tier-card tier-2">
+                        <div class="comp-tier-top">
+                            <span class="tier-badge">Level 2 · Intermediate</span>
+                            <strong id="tier-count-2">0</strong>
+                        </div>
+                        <h4>Guided Practitioner</h4>
+                        <p>Executes standard procedures reliably with occasional supervisor check-ins.</p>
+                    </div>
+
+                    <div class="comp-tier-card tier-3">
+                        <div class="comp-tier-top">
+                            <span class="tier-badge">Level 3 · Advanced</span>
+                            <strong id="tier-count-3">0</strong>
+                        </div>
+                        <h4>Independent Specialist</h4>
+                        <p>Handles complex troubleshooting independently and ensures compliance standards.</p>
+                    </div>
+
+                    <div class="comp-tier-card tier-4">
+                        <div class="comp-tier-top">
+                            <span class="tier-badge">Level 4 · Expert</span>
+                            <strong id="tier-count-4">0</strong>
+                        </div>
+                        <h4>Subject Matter Authority</h4>
+                        <p>Leads critical operations, audits quality, and mentors junior technicians.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Workspace: Verification Queue + Department Readiness -->
+            <section class="comp-workspace">
+                <!-- Left: Competency Verification Queue -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Competency Verification Queue</h3>
+                            <p class="panel-subtext">Review employee-submitted skills and update verification statuses.</p>
+                        </div>
+                        <button type="button" class="primary-pill-btn" id="btn-submit-competency">
+                            <i data-lucide="plus-circle"></i> Log Submission
+                        </button>
+                    </div>
+
+                    <div class="filter-bar">
+                        <select id="comp-filter-status">
+                            <option value="needs_review">Needs Review (Pending & Declared)</option>
+                            <option value="">All Statuses</option>
+                            <option value="Pending">Pending Only</option>
+                            <option value="Declared">Declared Only</option>
+                            <option value="Verified">Verified</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+
+                        <select id="comp-filter-dept">
+                            <option value="">All Departments</option>
+                            <option value="IT">IT</option>
+                            <option value="HR">HR</option>
+                            <option value="CCS">CCS</option>
+                            <option value="Operations">Operations</option>
+                        </select>
+
+                        <select id="comp-filter-level">
+                            <option value="">All Levels</option>
+                            <option value="Beginner">Level 1 — Beginner</option>
+                            <option value="Intermediate">Level 2 — Intermediate</option>
+                            <option value="Advanced">Level 3 — Advanced</option>
+                            <option value="Expert">Level 4 — Expert</option>
+                        </select>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Skill & Category</th>
+                                    <th>Claimed Level</th>
+                                    <th>Status</th>
+                                    <th>Verification Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="comp-queue-rows">
+                                <tr>
+                                    <td colspan="5">Loading competency records...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Right: Department Competency Breakdown -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Department Readiness</h3>
+                            <p class="panel-subtext">Verified vs. unverified competencies by unit.</p>
+                        </div>
+                    </div>
+
+                    <div id="dept-readiness-list" class="dept-readiness-list">
+                        <span class="muted-text">Calculating department readiness...</span>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <!-- Modal: Submit / Review Competency Record -->
+    <div class="mcft-modal-backdrop" id="comp-review-modal" style="display: none;">
+        <div class="mcft-modal">
+            <div class="mcft-modal-header">
+                <h3 id="comp-modal-title">Review Competency Record</h3>
+                <button type="button" class="icon-btn" id="close-comp-modal" aria-label="Close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="comp-review-form" class="mcft-modal-form">
+                <input type="hidden" id="comp-record-id">
+
+                <label>
+                    <span>Employee</span>
+                    <select id="comp-modal-emp" required></select>
+                </label>
+
+                <label>
+                    <span>Skill</span>
+                    <select id="comp-modal-skill" required></select>
+                </label>
+
+                <label>
+                    <span>Assessed Proficiency Level</span>
+                    <select id="comp-modal-level" required>
+                        <option value="Beginner">Level 1 — Beginner</option>
+                        <option value="Intermediate">Level 2 — Intermediate</option>
+                        <option value="Advanced">Level 3 — Advanced</option>
+                        <option value="Expert">Level 4 — Expert</option>
+                    </select>
+                </label>
+
+                <label>
+                    <span>Verification Decision</span>
+                    <select id="comp-modal-status" required>
+                        <option value="Verified">Verified (Approved)</option>
+                        <option value="Pending">Pending Verification</option>
+                        <option value="Declared">Declared (Unverified)</option>
+                        <option value="Rejected">Rejected (Needs Re-assessment)</option>
+                    </select>
+                </label>
+
+                <div class="mcft-modal-actions">
+                    <button type="button" class="table-btn" id="cancel-comp-modal">Cancel</button>
+                    <button type="submit" class="primary-pill-btn">Save Decision</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/api.js"></script>
+    <script src="js/competencies.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>
