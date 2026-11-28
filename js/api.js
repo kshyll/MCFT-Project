@@ -186,5 +186,53 @@ const api = {
               .select()
               .single()
         );
-    }
+    },
+
+    // =========================
+    // COMPETENCIES & VERIFICATION (competencies.html)
+    // =========================
+    async getCompetencyRecords() {
+        const [records, employees, skills] = await Promise.all([
+            run(
+                db.from('employee_skills')
+                  .select(`
+                      id,
+                      employee_id,
+                      skill_id,
+                      level,
+                      status,
+                      employees ( id, employee_no, full_name, department, position ),
+                      skills ( id, name, category )
+                  `)
+                  .order('id', { ascending: false })
+            ),
+            run(
+                db.from('employees')
+                  .select('id, employee_no, full_name, department, status')
+                  .eq('status', 'Active')
+                  .order('full_name')
+            ),
+            run(
+                db.from('skills')
+                  .select('id, name, category')
+                  .order('name')
+            )
+        ]);
+
+        return { records, employees, skills };
+    },
+
+    updateCompetencyStatus(recordId, status, level) {
+        const payload = { status };
+        if (level) payload.level = level;
+
+        return run(
+            db.from('employee_skills')
+              .update(payload)
+              .eq('id', recordId)
+              .select()
+              .single()
+        );
+    },
+
 };
