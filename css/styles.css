@@ -1001,3 +1001,345 @@ td a {
         font-size: 11px;
     }
 }
+
+/* =========================
+   SKILLS MATRIX PAGE
+========================= */
+.skills-summary-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.card-icon.green {
+    background: #dcfce7;
+    color: var(--green);
+}
+
+.panel-subtext {
+    margin: 3px 0 0;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.panel-actions-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.panel-actions-group .table-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 10px;
+}
+
+.panel-actions-group .table-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.matrix-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.matrix-legend {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.legend-item .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot.lvl-beginner { background: #93c5fd; }
+.dot.lvl-intermediate { background: #34d399; }
+.dot.lvl-advanced { background: #f59e0b; }
+.dot.lvl-expert { background: #e21b87; }
+
+.matrix-scroll-container {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.skills-matrix-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 760px;
+}
+
+.skills-matrix-table th,
+.skills-matrix-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    text-align: center;
+    font-size: 12px;
+}
+
+.skills-matrix-table th:last-child,
+.skills-matrix-table td:last-child {
+    border-right: none;
+}
+
+.skills-matrix-table thead th {
+    background: #fafafa;
+    font-weight: 600;
+    vertical-align: bottom;
+}
+
+.skill-col-header {
+    min-width: 130px;
+}
+
+.skill-col-cat {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--pink);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 2px;
+}
+
+.skill-col-name {
+    display: block;
+    font-size: 12px;
+    color: var(--ink);
+}
+
+.sticky-col {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: #fff;
+    text-align: left !important;
+    min-width: 210px;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.03);
+}
+
+thead .sticky-col {
+    background: #fafafa;
+    z-index: 3;
+}
+
+.matrix-emp-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.matrix-emp-cell a {
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.matrix-emp-cell a:hover {
+    color: var(--pink);
+}
+
+.matrix-emp-meta {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.matrix-cell-btn {
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    transition: 0.15s ease;
+}
+
+.matrix-cell-btn:hover {
+    transform: translateY(-1px);
+    border-color: var(--pink);
+}
+
+.matrix-cell-empty {
+    background: #f9fafb;
+    color: #9ca3af;
+}
+
+.matrix-cell-empty:hover {
+    background: var(--pink-pale);
+    color: var(--pink);
+}
+
+.cell-lvl-beginner {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.cell-lvl-intermediate {
+    background: #ecfdf5;
+    color: #047857;
+}
+
+.cell-lvl-advanced {
+    background: #fffbeb;
+    color: #b45309;
+}
+
+.cell-lvl-expert {
+    background: var(--pink-pale);
+    color: var(--pink);
+}
+
+.cell-status-tag {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+/* Taxonomy Cards */
+.taxonomy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.taxonomy-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.taxonomy-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.taxonomy-cat-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: var(--blue-soft);
+    color: #2563eb;
+}
+
+.taxonomy-card h4 {
+    margin: 0;
+    font-size: 13px;
+}
+
+.taxonomy-card p {
+    margin: 0;
+    font-size: 11px;
+    color: var(--muted);
+}
+
+/* Shared Modal Styles */
+.mcft-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
+}
+
+.mcft-modal {
+    background: #fff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 440px;
+    padding: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.14);
+}
+
+.mcft-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.mcft-modal-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.mcft-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mcft-modal-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.mcft-modal-form input,
+.mcft-modal-form select {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 9px 12px;
+    font: inherit;
+    font-size: 13px;
+    background: #fff;
+}
+
+.mcft-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+@media (max-width: 1100px) {
+    .skills-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .skills-summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
