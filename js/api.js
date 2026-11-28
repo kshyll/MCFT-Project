@@ -294,4 +294,50 @@ const api = {
         return data.publicUrl;
     },
 
+    // =========================
+    // TRAINING & DEVELOPMENT (training.html)
+    // =========================
+    async getAllTrainings() {
+        const [trainings, employees] = await Promise.all([
+            run(
+                db.from('trainings')
+                  .select(`
+                      id,
+                      employee_id,
+                      title,
+                      provider,
+                      completed_on,
+                      status,
+                      verified,
+                      remarks,
+                      created_at,
+                      employees ( id, employee_no, full_name, department, position )
+                  `)
+                  .order('created_at', { ascending: false })
+            ),
+            run(
+                db.from('employees')
+                  .select('id, employee_no, full_name, department, status')
+                  .eq('status', 'Active')
+                  .order('full_name')
+            )
+        ]);
+
+        return { trainings, employees };
+    },
+
+    updateTraining(id, values) {
+        return run(
+            db.from('trainings')
+              .update(values)
+              .eq('id', id)
+              .select()
+              .single()
+        );
+    },
+
+    deleteTraining(id) {
+        return run(db.from('trainings').delete().eq('id', id));
+    },
+
 };

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training & Development | MCFT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <nav class="navigation">
+            <img class="brand-mark" src="MCFT_Logo_Marque_FullColour_RGB.webp" alt="MCFT Logo" />
+
+            <ul>
+                <li>
+                    <a href="index.html" class="nav-link" title="Dashboard" data-tooltip="Dashboard">
+                        <i data-lucide="layout-dashboard"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="employees.html" class="nav-link" title="Employees" data-tooltip="Employees">
+                        <i data-lucide="users"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="skills.html" class="nav-link" title="Skills Matrix" data-tooltip="Skills Matrix">
+                        <i data-lucide="brain"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="competencies.html" class="nav-link" title="Competencies" data-tooltip="Competencies">
+                        <i data-lucide="layers"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="certifications.html" class="nav-link" title="Certifications" data-tooltip="Certifications">
+                        <i data-lucide="award"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="training.html" class="nav-link active" title="Training" data-tooltip="Training">
+                        <i data-lucide="graduation-cap"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="reports.html" class="nav-link" title="Reports" data-tooltip="Reports">
+                        <i data-lucide="bar-chart-2"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-bottom">
+                <a href="settings.html" class="nav-link" title="Settings" data-tooltip="Settings">
+                    <i data-lucide="settings"></i>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar" id="topbar">
+            <div class="page-heading" id="page-heading">
+                <h1 id="page-title">Training &amp; Development</h1>
+                <p id="page-subtitle">Track employee training enrollments, completion progress, and verification records.</p>
+            </div>
+
+            <div class="header-actions" id="header-actions">
+                <div class="search-bar" id="training-search-wrap">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="training-search" placeholder="Search employee, training title, or provider..."
+                        aria-label="Search training records">
+                </div>
+
+                <div class="user-profile" id="user-profile">
+                    <img id="user-avatar" src="profile.jpg" alt="User Profile">
+                    <div class="user-info">
+                        <h4 id="user-name">Admin Name</h4>
+                        <span id="user-role">HR Manager</span>
+                    </div>
+                </div>
+
+                <button class="logout-btn" id="logout-button" title="Logout" aria-label="Logout">
+                    <i data-lucide="log-out"></i>
+                </button>
+            </div>
+        </header>
+
+        <section class="dashboard-content">
+            <!-- Summary Cards -->
+            <section class="summary-grid training-summary-grid">
+                <div class="summary-card">
+                    <div class="card-icon green">
+                        <i data-lucide="check-circle-2"></i>
+                    </div>
+                    <p>Completed Trainings</p>
+                    <h2 id="stat-train-completed">--</h2>
+                    <span>Finished programs</span>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon blue">
+                        <i data-lucide="loader"></i>
+                    </div>
+                    <p>In Progress</p>
+                    <h2 id="stat-train-progress">--</h2>
+                    <span>Currently enrolled</span>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon yellow">
+                        <i data-lucide="clock"></i>
+                    </div>
+                    <p>Not Completed</p>
+                    <h2 id="stat-train-pending">--</h2>
+                    <span>Assigned or overdue</span>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon pink">
+                        <i data-lucide="trending-up"></i>
+                    </div>
+                    <p>Completion Rate</p>
+                    <h2 id="stat-train-rate">--%</h2>
+                    <span>Overall training completion</span>
+                </div>
+            </section>
+
+            <!-- Main Training Registry Panel -->
+            <section class="panel">
+                <div class="panel-header">
+                    <div>
+                        <h3>Employee Training Registry</h3>
+                        <p class="panel-subtext">Assign courses, log completed programs, and verify training attendance.</p>
+                    </div>
+                    <div class="panel-actions-group">
+                        <button type="button" class="table-btn" id="btn-export-training">
+                            <i data-lucide="download"></i> Export CSV
+                        </button>
+                        <button type="button" class="primary-pill-btn" id="btn-new-training">
+                            <i data-lucide="plus"></i> Log Training Record
+                        </button>
+                    </div>
+                </div>
+
+                <div class="filter-bar">
+                    <select id="train-filter-status">
+                        <option value="">All Completion Statuses</option>
+                        <option value="Completed">Completed</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Not Completed">Not Completed</option>
+                    </select>
+
+                    <select id="train-filter-verified">
+                        <option value="">All Verification States</option>
+                        <option value="verified">Verified</option>
+                        <option value="pending">Pending Verification</option>
+                    </select>
+
+                    <select id="train-filter-dept">
+                        <option value="">All Departments</option>
+                        <option value="IT">IT</option>
+                        <option value="HR">HR</option>
+                        <option value="CCS">CCS</option>
+                        <option value="Operations">Operations</option>
+                    </select>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th>Training Program &amp; Provider</th>
+                                <th>Completion Date</th>
+                                <th>Progress Status</th>
+                                <th>Verification</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="training-table-rows">
+                            <tr>
+                                <td colspan="6">Loading training records...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <!-- Modal: Add / Edit Training Record -->
+    <div class="mcft-modal-backdrop" id="training-modal" style="display: none;">
+        <div class="mcft-modal">
+            <div class="mcft-modal-header">
+                <h3 id="train-modal-title">Log Training Record</h3>
+                <button type="button" class="icon-btn" id="close-train-modal" aria-label="Close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="train-modal-form" class="mcft-modal-form">
+                <input type="hidden" id="train-record-id">
+
+                <label>
+                    <span>Employee *</span>
+                    <select id="train-modal-emp" required></select>
+                </label>
+
+                <label>
+                    <span>Training Title *</span>
+                    <input type="text" id="train-modal-title-input" placeholder="e.g. Occupational Safety & Health Seminar" required>
+                </label>
+
+                <label>
+                    <span>Training Provider / Facilitator</span>
+                    <input type="text" id="train-modal-provider" placeholder="e.g. DOLE, Internal HR, Coursera">
+                </label>
+
+                <div class="cert-date-row">
+                    <label>
+                        <span>Progress Status *</span>
+                        <select id="train-modal-status" required>
+                            <option value="Not Completed">Not Completed</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>Completed On</span>
+                        <input type="date" id="train-modal-completed-on">
+                    </label>
+                </div>
+
+                <label>
+                    <span>Verification Status</span>
+                    <select id="train-modal-verified">
+                        <option value="false">Pending Verification</option>
+                        <option value="true">Verified</option>
+                    </select>
+                </label>
+
+                <label>
+                    <span>Remarks / Notes (Optional)</span>
+                    <input type="text" id="train-modal-remarks" placeholder="e.g. Attended 8-hour workshop with certificate">
+                </label>
+
+                <div class="mcft-modal-actions">
+                    <button type="button" class="table-btn" id="cancel-train-modal">Cancel</button>
+                    <button type="submit" class="primary-pill-btn" id="save-train-btn">Save Training Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/api.js"></script>
+    <script src="js/training.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>
