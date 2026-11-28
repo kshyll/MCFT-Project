@@ -340,4 +340,36 @@ const api = {
         return run(db.from('trainings').delete().eq('id', id));
     },
 
+    // =========================
+    // REPORTS & ANALYTICS (reports.html)
+    // =========================
+    async getReportsDataset() {
+        const [employees, skills, employeeSkills, certifications, trainings] = await Promise.all([
+            run(
+                db.from('employees')
+                  .select('id, employee_no, full_name, department, position, status')
+                  .order('full_name')
+            ),
+            run(
+                db.from('skills')
+                  .select('id, name, category')
+                  .order('name')
+            ),
+            run(
+                db.from('employee_skills')
+                  .select('id, employee_id, skill_id, level, status')
+            ),
+            run(
+                db.from('certifications')
+                  .select('id, employee_id, name, issuer, issued_on, expires_on, verified')
+            ),
+            run(
+                db.from('trainings')
+                  .select('id, employee_id, title, provider, completed_on, status, verified')
+            )
+        ]);
+
+        return { employees, skills, employeeSkills, certifications, trainings };
+    },
+
 };

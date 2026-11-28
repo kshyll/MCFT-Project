@@ -1645,3 +1645,114 @@ thead .sticky-col {
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================
+   REPORTS & ANALYTICS PAGE
+========================= */
+.reports-summary-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.reports-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.rep-bar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.rep-bar-row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rep-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.rep-bar-track {
+    height: 10px;
+    background: #f3f4f6;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.rep-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+
+.rep-bar-fill.lvl-1 { background: #60a5fa; }
+.rep-bar-fill.lvl-2 { background: #34d399; }
+.rep-bar-fill.lvl-3 { background: #f59e0b; }
+.rep-bar-fill.lvl-4 { background: var(--pink); }
+
+.rep-gap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rep-gap-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fafafa;
+    font-size: 12px;
+}
+
+.rep-gap-item strong {
+    display: block;
+    font-size: 13px;
+}
+
+.rep-gap-item span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.rep-gap-pill {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.rep-gap-pill.ok {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+@media print {
+    .sidebar,
+    .topbar .header-actions,
+    .filter-bar,
+    .panel-actions-group {
+        display: none !important;
+    }
+    .main-content {
+        margin-left: 0 !important;
+        padding: 0 !important;
+    }
+}
+
+@media (max-width: 1100px) {
+    .reports-summary-grid,
+    .reports-charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
