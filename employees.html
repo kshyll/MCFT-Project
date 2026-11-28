@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees | MCFT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <nav class="navigation">
+            <img class="brand-mark" src="MCFT_Logo_Marque_FullColour_RGB.webp" alt="MCFT Logo" />
+
+            <ul>
+                <li>
+                    <a href="index.html" class="nav-link" title="Dashboard" data-tooltip="Dashboard">
+                        <i data-lucide="layout-dashboard"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="employees.html" class="nav-link active" title="Employees" data-tooltip="Employees">
+                        <i data-lucide="users"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="skills.html" class="nav-link" title="Skills Matrix" data-tooltip="Skills Matrix">
+                        <i data-lucide="brain"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="competencies.html" class="nav-link" title="Competencies" data-tooltip="Competencies">
+                        <i data-lucide="layers"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="certifications.html" class="nav-link" title="Certifications" data-tooltip="Certifications">
+                        <i data-lucide="award"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="training.html" class="nav-link" title="Training" data-tooltip="Training">
+                        <i data-lucide="graduation-cap"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="reports.html" class="nav-link" title="Reports" data-tooltip="Reports">
+                        <i data-lucide="bar-chart-2"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-bottom">
+                <a href="settings.html" class="nav-link" title="Settings" data-tooltip="Settings">
+                    <i data-lucide="settings"></i>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar" id="topbar">
+            <div class="page-heading" id="page-heading">
+                <h1 id="page-title">Employee Directory & Profiles</h1>
+                <p id="page-subtitle">Manage workforce records, roles, and individual competency profiles.</p>
+            </div>
+
+            <div class="header-actions" id="header-actions">
+                <div class="search-bar" id="employee-search">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="emp-page-search" placeholder="Search by name, number, or position..."
+                        aria-label="Search employees">
+                </div>
+
+                <div class="user-profile" id="user-profile">
+                    <img id="user-avatar" src="profile.jpg" alt="User Profile">
+                    <div class="user-info">
+                        <h4 id="user-name">Admin Name</h4>
+                        <span id="user-role">HR Manager</span>
+                    </div>
+                </div>
+
+                <button class="logout-btn" id="logout-button" title="Logout" aria-label="Logout">
+                    <i data-lucide="log-out"></i>
+                </button>
+            </div>
+        </header>
+
+        <section class="dashboard-content">
+            <!-- Mini Summary Bar -->
+            <section class="summary-grid emp-summary-grid">
+                <div class="summary-card">
+                    <div class="card-icon pink">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <p>Total Workforce</p>
+                    <h2 id="emp-total-count">--</h2>
+                    <span>Registered personnel</span>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon blue">
+                        <i data-lucide="user-check"></i>
+                    </div>
+                    <p>Active Employees</p>
+                    <h2 id="emp-active-count">--</h2>
+                    <span>Available for deployment</span>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon yellow">
+                        <i data-lucide="user-minus"></i>
+                    </div>
+                    <p>Inactive Employees</p>
+                    <h2 id="emp-inactive-count">--</h2>
+                    <span>On leave / archived</span>
+                </div>
+            </section>
+
+            <!-- Directory + Profile Split View -->
+            <section class="emp-workspace">
+                <!-- Left: Employee List -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>All Employees</h3>
+                        <button type="button" class="primary-pill-btn" id="btn-new-employee">
+                            <i data-lucide="user-plus"></i> Add Employee
+                        </button>
+                    </div>
+
+                    <div class="filter-bar">
+                        <select id="filter-dept">
+                            <option value="">All Departments</option>
+                            <option value="IT">IT</option>
+                            <option value="HR">HR</option>
+                            <option value="CCS">CCS</option>
+                            <option value="Operations">Operations</option>
+                        </select>
+
+                        <select id="filter-status">
+                            <option value="">All Statuses</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Emp No.</th>
+                                    <th>Full Name</th>
+                                    <th>Department</th>
+                                    <th>Position</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="emp-directory-rows">
+                                <tr>
+                                    <td colspan="6">Loading employees...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Right: Selected Employee Competency Profile -->
+                <div class="panel profile-detail-panel" id="profile-detail-panel">
+                    <div class="empty-profile-state" id="profile-empty-state">
+                        <i data-lucide="id-card"></i>
+                        <h4>Select an Employee</h4>
+                        <p>Click <strong>Profile</strong> on any employee row to view or manage their skills, certifications, and training records.</p>
+                    </div>
+
+                    <div id="profile-loaded-state" style="display: none;">
+                        <div class="profile-banner">
+                            <div>
+                                <span class="emp-no-tag" id="prof-emp-no">EMP-000</span>
+                                <h2 id="prof-full-name">Employee Name</h2>
+                                <p id="prof-role-dept">Position · Department</p>
+                            </div>
+                            <div class="profile-banner-actions">
+                                <span class="status active-status" id="prof-status-badge">Active</span>
+                                <button type="button" class="icon-btn" id="btn-edit-employee" title="Edit Employee Details">
+                                    <i data-lucide="pencil"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Profile Skills -->
+                        <div class="profile-section">
+                            <div class="profile-section-header">
+                                <h4><i data-lucide="brain"></i> Technical Skills</h4>
+                                <button type="button" class="mini-add-btn" id="prof-add-skill">+ Add Skill</button>
+                            </div>
+                            <div id="prof-skills-list" class="tag-list">
+                                <span class="muted-text">No skills recorded yet.</span>
+                            </div>
+                        </div>
+
+                        <!-- Profile Certifications -->
+                        <div class="profile-section">
+                            <div class="profile-section-header">
+                                <h4><i data-lucide="award"></i> Certifications</h4>
+                                <button type="button" class="mini-add-btn" id="prof-add-cert">+ Add Cert</button>
+                            </div>
+                            <div id="prof-certs-list" class="record-list">
+                                <span class="muted-text">No certifications recorded yet.</span>
+                            </div>
+                        </div>
+
+                        <!-- Profile Trainings -->
+                        <div class="profile-section">
+                            <div class="profile-section-header">
+                                <h4><i data-lucide="graduation-cap"></i> Training History</h4>
+                                <button type="button" class="mini-add-btn" id="prof-add-training">+ Add Training</button>
+                            </div>
+                            <div id="prof-trainings-list" class="record-list">
+                                <span class="muted-text">No training records yet.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="employees.js"></script>
+    <script src="js/employees.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>
