@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Matrix | MCFT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <nav class="navigation">
+            <img class="brand-mark" src="MCFT_Logo_Marque_FullColour_RGB.webp" alt="MCFT Logo" />
+
+            <ul>
+                <li>
+                    <a href="index.html" class="nav-link" title="Dashboard" data-tooltip="Dashboard">
+                        <i data-lucide="layout-dashboard"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="employees.html" class="nav-link" title="Employees" data-tooltip="Employees">
+                        <i data-lucide="users"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="skills.html" class="nav-link active" title="Skills Matrix" data-tooltip="Skills Matrix">
+                        <i data-lucide="brain"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="competencies.html" class="nav-link" title="Competencies" data-tooltip="Competencies">
+                        <i data-lucide="layers"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="certifications.html" class="nav-link" title="Certifications" data-tooltip="Certifications">
+                        <i data-lucide="award"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="training.html" class="nav-link" title="Training" data-tooltip="Training">
+                        <i data-lucide="graduation-cap"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="reports.html" class="nav-link" title="Reports" data-tooltip="Reports">
+                        <i data-lucide="bar-chart-2"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-bottom">
+                <a href="settings.html" class="nav-link" title="Settings" data-tooltip="Settings">
+                    <i data-lucide="settings"></i>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar" id="topbar">
+            <div class="page-heading" id="page-heading">
+                <h1 id="page-title">Workforce Skills Matrix</h1>
+                <p id="page-subtitle">Compare technical capabilities, proficiency levels, and verification statuses across teams.</p>
+            </div>
+
+            <div class="header-actions" id="header-actions">
+                <div class="search-bar" id="matrix-search-wrap">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="matrix-search" placeholder="Search employee or skill..."
+                        aria-label="Search skills matrix">
+                </div>
+
+                <div class="user-profile" id="user-profile">
+                    <img id="user-avatar" src="profile.jpg" alt="User Profile">
+                    <div class="user-info">
+                        <h4 id="user-name">Admin Name</h4>
+                        <span id="user-role">HR Manager</span>
+                    </div>
+                </div>
+
+                <button class="logout-btn" id="logout-button" title="Logout" aria-label="Logout">
+                    <i data-lucide="log-out"></i>
+                </button>
+            </div>
+        </header>
+
+        <section class="dashboard-content">
+            <!-- Summary Cards -->
+            <section class="summary-grid skills-summary-grid">
+                <div class="summary-card">
+                    <div class="card-icon pink">
+                        <i data-lucide="brain"></i>
+                    </div>
+                    <p>Cataloged Skills</p>
+                    <h2 id="stat-total-skills">--</h2>
+                    <span>Active skill definitions</span>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon blue">
+                        <i data-lucide="badge-check"></i>
+                    </div>
+                    <p>Verified Assignments</p>
+                    <h2 id="stat-verified-skills">--</h2>
+                    <span>Approved skill records</span>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon yellow">
+                        <i data-lucide="clock"></i>
+                    </div>
+                    <p>Pending Review</p>
+                    <h2 id="stat-pending-skills">--</h2>
+                    <span>Awaiting supervisor sign-off</span>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon green">
+                        <i data-lucide="layers"></i>
+                    </div>
+                    <p>Skill Categories</p>
+                    <h2 id="stat-skill-categories">--</h2>
+                    <span>Technical & compliance groups</span>
+                </div>
+            </section>
+
+            <!-- Workforce Skills Matrix Panel -->
+            <section class="panel">
+                <div class="panel-header">
+                    <div>
+                        <h3>Employee × Skill Proficiency Grid</h3>
+                        <p class="panel-subtext">Click any cell to assign or update an employee's proficiency level.</p>
+                    </div>
+                    <div class="panel-actions-group">
+                        <button type="button" class="table-btn" id="btn-export-matrix">
+                            <i data-lucide="download"></i> Export CSV
+                        </button>
+                        <button type="button" class="table-btn" id="btn-new-skill-catalog">
+                            <i data-lucide="plus"></i> New Skill
+                        </button>
+                        <button type="button" class="primary-pill-btn" id="btn-assign-skill">
+                            <i data-lucide="sparkles"></i> Assign Skill
+                        </button>
+                    </div>
+                </div>
+
+                <div class="matrix-toolbar">
+                    <div class="filter-bar">
+                        <select id="matrix-filter-dept">
+                            <option value="">All Departments</option>
+                            <option value="IT">IT</option>
+                            <option value="HR">HR</option>
+                            <option value="CCS">CCS</option>
+                            <option value="Operations">Operations</option>
+                        </select>
+
+                        <select id="matrix-filter-category">
+                            <option value="">All Skill Categories</option>
+                        </select>
+
+                        <select id="matrix-filter-status">
+                            <option value="">All Verification Statuses</option>
+                            <option value="Verified">Verified</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Declared">Declared</option>
+                        </select>
+                    </div>
+
+                    <div class="matrix-legend">
+                        <span class="legend-item"><i class="dot lvl-beginner"></i> L1 Beginner</span>
+                        <span class="legend-item"><i class="dot lvl-intermediate"></i> L2 Intermediate</span>
+                        <span class="legend-item"><i class="dot lvl-advanced"></i> L3 Advanced</span>
+                        <span class="legend-item"><i class="dot lvl-expert"></i> L4 Expert</span>
+                    </div>
+                </div>
+
+                <div class="table-container matrix-scroll-container">
+                    <table class="skills-matrix-table" id="skills-matrix-table">
+                        <thead id="matrix-thead">
+                            <tr>
+                                <th class="sticky-col">Employee</th>
+                                <th>Loading skills...</th>
+                            </tr>
+                        </thead>
+                        <tbody id="matrix-tbody">
+                            <tr>
+                                <td colspan="2">Loading workforce skills matrix...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Skill Taxonomy / Catalog Strip -->
+            <section class="panel" style="margin-top: 16px;">
+                <div class="panel-header">
+                    <h3>Skill Taxonomy & Coverage</h3>
+                    <span class="muted-text" id="taxonomy-count-label">0 skills</span>
+                </div>
+                <div class="taxonomy-grid" id="skill-taxonomy-grid">
+                    <span class="muted-text">Loading skill catalog...</span>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <!-- Modal: Assign / Update Employee Skill -->
+    <div class="mcft-modal-backdrop" id="assign-skill-modal" style="display: none;">
+        <div class="mcft-modal">
+            <div class="mcft-modal-header">
+                <h3 id="assign-modal-title">Assign Employee Skill</h3>
+                <button type="button" class="icon-btn" id="close-assign-modal" aria-label="Close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="assign-skill-form" class="mcft-modal-form">
+                <label>
+                    <span>Employee</span>
+                    <select id="modal-emp-select" required></select>
+                </label>
+
+                <label>
+                    <span>Skill</span>
+                    <select id="modal-skill-select" required></select>
+                </label>
+
+                <label>
+                    <span>Proficiency Level</span>
+                    <select id="modal-level-select" required>
+                        <option value="Beginner">Level 1 — Beginner</option>
+                        <option value="Intermediate">Level 2 — Intermediate</option>
+                        <option value="Advanced">Level 3 — Advanced</option>
+                        <option value="Expert">Level 4 — Expert</option>
+                    </select>
+                </label>
+
+                <label>
+                    <span>Verification Status</span>
+                    <select id="modal-status-select" required>
+                        <option value="Verified">Verified</option>
+                        <option value="Pending">Pending Verification</option>
+                        <option value="Declared">Declared (Unverified)</option>
+                    </select>
+                </label>
+
+                <div class="mcft-modal-actions">
+                    <button type="button" class="table-btn" id="cancel-assign-modal">Cancel</button>
+                    <button type="submit" class="primary-pill-btn">Save Skill Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Add New Skill to Master Catalog -->
+    <div class="mcft-modal-backdrop" id="new-skill-modal" style="display: none;">
+        <div class="mcft-modal">
+            <div class="mcft-modal-header">
+                <h3>Add Skill to Master Catalog</h3>
+                <button type="button" class="icon-btn" id="close-new-skill-modal" aria-label="Close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="new-skill-form" class="mcft-modal-form">
+                <label>
+                    <span>Skill Name</span>
+                    <input type="text" id="new-skill-name" placeholder="e.g. Fiber Optic Splicing" required>
+                </label>
+
+                <label>
+                    <span>Category</span>
+                    <select id="new-skill-category" required>
+                        <option value="Technical">Technical</option>
+                        <option value="Field Service">Field Service</option>
+                        <option value="Compliance">Compliance</option>
+                        <option value="Safety">Safety</option>
+                        <option value="Management">Management</option>
+                    </select>
+                </label>
+
+                <div class="mcft-modal-actions">
+                    <button type="button" class="table-btn" id="cancel-new-skill-modal">Cancel</button>
+                    <button type="submit" class="primary-pill-btn">Create Skill</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="api.js"></script>
+    <script src="js/skills.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

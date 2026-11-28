@@ -1,139 +1,190 @@
-const SUPABASE_URL = "https://pmnkooqadiukqvinxyny.supabase.co";
-const SUPABASE_KEY = "sb_publishable__xcv8rWT-h-EEDuhFqSBAA_w5kdf_PR";
+const SUPABASE_URL = 'https://pmnkooqadiukqvinxyny.supabase.co';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
 
-const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 async function run(query) {
-    const result = await query;
-    if (result.error) {
-        throw new Error(result.error.message);
-    }
-    return result.data;
-}
-function pct(part, whole) {
-    if (whole === 0) {
-        return 0;
-    }
-    return Math.round((part / whole) * 100);
+    const { data, error } = await query;
+    if (error) throw new Error(error.message);
+    return data;
 }
 
 const api = {
-    async getEmployees(searchText, limit) {
+    // =========================
+    // DASHBOARD (index.html)
+    // =========================
+    async getDashboardStats() {
+        const [employees, skills, certifications, trainings] = await Promise.all([
+            run(db.from('employees').select('id, status')),
+            run(db.from('employee_skills').select('id')),
+            run(db.from('certifications').select('id, expires_on')),
+            run(db.from('trainings').select('id, status'))
+        ]);
+
+        const today = new Date().toISOString().slice(0, 10);
+        const in30 = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+
+        const activeEmployees = (employees || []).filter(e => e.status === 'Active').length;
+        const expiringCerts = (certifications || []).filter(
+            c => c.expires_on && c.expires_on >= today && c.expires_on <= in30
+        ).length;
+        const expiredCerts = (certifications || []).filter(
+            c => c.expires_on && c.expires_on < today
+        ).length;
+        const pendingTrainings = (trainings || []).filter(
+            t => t.status !== 'Completed'
+        ).length;
+
+        return {
+            totalEmployees: (employees || []).length,
+            activeEmployees,
+            totalSkillRecords: (skills || []).length,
+            expiringCerts,
+            expiredCerts,
+            pendingTrainings
+        };
+    },
+
+    // =========================
+    // EMPLOYEES (index.html & employees.html)
+    // =========================
+    async getAllEmployees(filters = {}) {
         let query = db
             .from('employees')
-            .select('id, employee_no, full_name, department, position, status')
-            .order('full_name')
-            .limit(limit || 10);
+            .select('id, employee_no, full_name, email, department, position, status, created_at')
+            .order('full_name');
 
-        if (searchText) {
-            const clean = searchText.replace(/[,()%*]/g, ' ');
-            query = query.or('full_name.ilike.%' + clean + '%,employee_no.ilike.%' + clean + '%');
+        if (filters.search) {
+            const clean = filters.search.replace(/[,()%*]/g, ' ');
+            query = query.or(
+                'full_name.ilike.%' + clean +
+                '%,employee_no.ilike.%' + clean +
+                '%,position.ilike.%' + clean + '%'
+            );
+        }
+        if (filters.department) {
+            query = query.eq('department', filters.department);
+        }
+        if (filters.status) {
+            query = query.eq('status', filters.status);
         }
         return run(query);
     },
+
     addEmployee(values) {
-        return run(db.from('employees').insert(values));
+        return run(db.from('employees').insert(values).select().single());
     },
-    addCertification(values) {
-        return run(db.from('certifications').insert(values));
-    },
-    addTraining(values) {
-        return run(db.from('trainings').insert(values));
-    },
-    async recordSkill(values) {
-        const skillName = values.skill_name.trim();
-        const found = await run(db.from('skills').select('id').eq('name', skillName).limit(1));
 
-        let skillId;
-        if (found.length > 0) {
-            skillId = found[0].id;
-        } else {
-            const created = await run(db.from('skills').insert({ name: skillName }).select('id').single());
-            skillId = created.id;
-        }
-        return run(
-            db.from('employee_skills').upsert(
-                { employee_id: values.employee_id, skill_id: skillId, level: Number(values.level) },
-                { onConflict: 'employee_id,skill_id' }
-            )
+    updateEmployee(id, values) {
+        return run(db.from('employees').update(values).eq('id', id).select().single());
+    },
+
+    async getEmployeeProfile(employeeId) {
+        const employee = await run(
+            db.from('employees').select('*').eq('id', employeeId).single()
         );
+        const skills = await run(
+            db.from('employee_skills')
+              .select('id, level, status, skills(name, category)')
+              .eq('employee_id', employeeId)
+        );
+        const certifications = await run(
+            db.from('certifications')
+              .select('*')
+              .eq('employee_id', employeeId)
+              .order('expires_on', { ascending: true })
+        );
+        const trainings = await run(
+            db.from('trainings')
+              .select('*')
+              .eq('employee_id', employeeId)
+              .order('created_at', { ascending: false })
+        );
+
+        return { employee, skills, certifications, trainings };
     },
-    async getSummary() {
-        const employees  = await run(db.from('employees').select('id, status'));
-        const certs      = await run(db.from('certifications').select('employee_id, expires_on, verified'));
-        const trainings  = await run(db.from('trainings').select('employee_id, status'));
-        const empSkills  = await run(db.from('employee_skills').select('employee_id, skills(name)'));
 
-        const today = new Date().toISOString().slice(0, 10);
-        const in30  = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-        const totalEmployees = employees.length;
-        let activeEmployees = 0;
-        for (const e of employees) {
-            if (e.status === 'Active') { activeEmployees++; }
-        }
-        let active = 0, expiring = 0, expired = 0, pending = 0;
-        const employeesWithActiveCert = new Set();
-        const employeesWithAnyCert = new Set();
+    async recordSkill({ employee_id, skill_name, level, category = 'General', status = 'Verified' }) {
+        let skill = await run(
+            db.from('skills').select('id').ilike('name', skill_name).maybeSingle()
+        );
 
-        for (const c of certs) {
-            employeesWithAnyCert.add(c.employee_id);
+        if (!skill) {
+            skill = await run(
+                db.from('skills').insert({ name: skill_name, category }).select().single()
+            );
+        }
 
-            if (c.expires_on !== null && c.expires_on < today) {
-                expired++;
-            } else {
-                active++;
-                employeesWithActiveCert.add(c.employee_id);
-                if (c.expires_on !== null && c.expires_on <= in30) {
-                    expiring++;
-                }
-            }
-            if (c.verified === false) { pending++; }
-        }
-        let completed = 0, inProgress = 0, notCompleted = 0;
-        const employeesWithTraining = new Set();
-        for (const t of trainings) {
-            employeesWithTraining.add(t.employee_id);
-            if (t.status === 'Completed') { completed++; }
-            else if (t.status === 'In Progress') { inProgress++; }
-            else { notCompleted++; }
-        }
-        const employeesWithSkill = new Set();
-        const skillCounts = {};
-        for (const s of empSkills) {
-            employeesWithSkill.add(s.employee_id);
-            const name = s.skills ? s.skills.name : null;
-            if (name) {
-                skillCounts[name] = (skillCounts[name] || 0) + 1;
-            }
-        }
-        const skillNames = Object.keys(skillCounts).sort(function (a, b) {
-            return skillCounts[b] - skillCounts[a];
+        return this.upsertEmployeeSkill({
+            employee_id,
+            skill_id: skill.id,
+            level,
+            status
         });
-        let complete = 0;
-        for (const e of employees) {
-            if (employeesWithSkill.has(e.id) && employeesWithAnyCert.has(e.id) && employeesWithTraining.has(e.id)) {
-                complete++;
-            }
+    },
+
+    addCertification(values) {
+        return run(db.from('certifications').insert(values).select().single());
+    },
+
+    addTraining(values) {
+        return run(db.from('trainings').insert(values).select().single());
+    },
+
+    // =========================
+    // SKILLS MATRIX (skills.html)
+    // =========================
+    async getSkillsMatrixData() {
+        const [employees, skills, assignments] = await Promise.all([
+            run(
+                db.from('employees')
+                  .select('id, employee_no, full_name, department, position, status')
+                  .eq('status', 'Active')
+                  .order('full_name')
+            ),
+            run(
+                db.from('skills')
+                  .select('id, name, category')
+                  .order('category')
+                  .order('name')
+            ),
+            run(
+                db.from('employee_skills')
+                  .select('id, employee_id, skill_id, level, status')
+            )
+        ]);
+
+        return { employees, skills, assignments };
+    },
+
+    createSkill(values) {
+        return run(db.from('skills').insert(values).select().single());
+    },
+
+    async upsertEmployeeSkill({ employee_id, skill_id, level, status }) {
+        const existing = await run(
+            db.from('employee_skills')
+              .select('id')
+              .eq('employee_id', employee_id)
+              .eq('skill_id', skill_id)
+              .maybeSingle()
+        );
+
+        if (existing && existing.id) {
+            return run(
+                db.from('employee_skills')
+                  .update({ level, status })
+                  .eq('id', existing.id)
+                  .select()
+                  .single()
+            );
         }
 
-        return {
-            totalEmployees: totalEmployees,
-            activeEmployees: activeEmployees,
-            inactiveEmployees: totalEmployees - activeEmployees,
-            activeCerts: active,
-            expiringCerts: expiring,
-            expiredCerts: expired,
-            pendingCerts: pending,
-            percentWithActiveCert: pct(employeesWithActiveCert.size, totalEmployees),
-            trainingCompleted: completed,
-            trainingInProgress: inProgress,
-            trainingNotCompleted: notCompleted,
-            trainingRate: pct(completed, trainings.length),
-            mostSkill: skillNames.length > 0 ? skillNames[0] : '-',
-            leastSkill: skillNames.length > 0 ? skillNames[skillNames.length - 1] : '-',
-            qualityScore: pct(complete, totalEmployees),
-            missingSkills: pct(totalEmployees - employeesWithSkill.size, totalEmployees),
-            missingCerts: pct(totalEmployees - employeesWithAnyCert.size, totalEmployees),
-            missingTraining: pct(totalEmployees - employeesWithTraining.size, totalEmployees)
-        };
+        return run(
+            db.from('employee_skills')
+              .insert({ employee_id, skill_id, level, status })
+              .select()
+              .single()
+        );
     }
 };
