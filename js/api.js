@@ -235,4 +235,63 @@ const api = {
         );
     },
 
+    // =========================
+    // CERTIFICATIONS (certifications.html)
+    // =========================
+    async getAllCertifications() {
+        const [certifications, employees] = await Promise.all([
+            run(
+                db.from('certifications')
+                  .select(`
+                      id,
+                      employee_id,
+                      name,
+                      issuer,
+                      issued_on,
+                      expires_on,
+                      verified,
+                      evidence_url,
+                      employees ( id, employee_no, full_name, department, position )
+                  `)
+                  .order('expires_on', { ascending: true, nullsFirst: false })
+            ),
+            run(
+                db.from('employees')
+                  .select('id, employee_no, full_name, department, status')
+                  .eq('status', 'Active')
+                  .order('full_name')
+            )
+        ]);
+
+        return { certifications, employees };
+    },
+
+    updateCertification(id, values) {
+        return run(
+            db.from('certifications')
+              .update(values)
+              .eq('id', id)
+              .select()
+              .single()
+        );
+    },
+
+    deleteCertification(id) {
+        return run(db.from('certifications').delete().eq('id', id));
+    },
+
+    async uploadCertificationEvidence(employeeId, file) {
+        const ext = file.name.split('.').pop();
+        const safePath = `${employeeId}/${Date.now()}.${ext}`;
+
+        const { error } = await db.storage
+            .from('evidence')
+            .upload(safePath, file, { upsert: true });
+
+        if (error) throw new Error(error.message);
+
+        const { data } = db.storage.from('evidence').getPublicUrl(safePath);
+        return data.publicUrl;
+    },
+
 };
